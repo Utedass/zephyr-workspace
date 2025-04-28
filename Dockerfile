@@ -11,3 +11,19 @@ RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip install west
+
+RUN mkdir -p /opt/zephyr-workspace/west-manifest
+
+COPY west-config/default.west.yml /opt/zephyr-workspace/west-manifest/west.yml
+
+WORKDIR /opt/zephyr-workspace/
+
+RUN [ "west", "init", "-l", "west-manifest" ]
+
+RUN [ "west", "update"]
+
+RUN [ "west", "packages", "pip", "--install"]
+
+RUN [ "west", "sdk", "install", "-b", "/opt/zephyr-sdk", "-t", "arm-zephyr-eabi", "riscv64-zephyr-elf"]
+
+ENV ZEPHYR_BASE=/opt/zephyr-workspace/zephyr
