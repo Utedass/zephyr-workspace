@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../opt/zephyr-workspace",
+			"name": "zephyr"
+		},
+		{
+			"path": "../opt/zephyr-sdk",
+			"name": "sdk"
+		}
+	],
+	"settings": {}
+}
