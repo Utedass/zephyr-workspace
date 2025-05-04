@@ -37,10 +37,10 @@
   },
 	"runArgs": ["--privileged"],
   "workspaceMount": "source=${localWorkspaceFolder}/workspace,target=/workspace,type=bind",
-  "workspaceFolder": "/workspace",
   "mounts": [
-    "source=${localWorkspaceFolder}/.devcontainer/workspace.code-workspace,target=/workspace/workspace.code-workspace,type=bind,consistency=cached"
-  ]
+    "source=${localWorkspaceFolder}/.devcontainer/workspace.code-workspace,target=/workspace/.vscode/workspace.code-workspace,type=bind,consistency=cached"
+  ],
+  "workspaceFolder": "/workspace/.vscode/workspace.code-workspace"
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "devcontainer"
 }
