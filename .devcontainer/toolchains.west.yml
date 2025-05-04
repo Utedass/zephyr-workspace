@@ -1,0 +1,19 @@
+manifest:
+  remotes:
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+  defaults:
+    remote: zephyrproject-rtos
+  projects:
+    - name: zephyr
+      revision: v4.1.0
+      import:
+        name-allowlist:
+          - cmsis
+          - hal_espressif
+          - hal_stm32
+          - hal_atmel
+          - hal_microchip
+          - hal_rpi_pico
+  self:
+    path: west-manifest

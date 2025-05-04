@@ -29,6 +29,8 @@
       },
       "extensions": [
         "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cpptools-themes",
         "ms-vscode.cmake-tools",
         "nordic-semiconductor.nrf-devicetree",
         "ms-vscode.hexeditor"

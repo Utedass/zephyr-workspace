@@ -10,6 +10,15 @@
 		{
 			"path": "/opt/zephyr-sdk",
 			"name": "sdk"
+		},
+		{
+			"path": "/opt/build",
+			"name": "build"
 		}
-	]
+	],
+	"settings": {
+		"cmake.ignoreCMakeListsMissing": true,
+		"editor.insertSpaces": true,
+		"editor.tabSize": 4
+	}
 }
