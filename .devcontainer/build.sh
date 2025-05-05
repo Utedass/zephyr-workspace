@@ -11,7 +11,7 @@ ORIG_DIR=$(pwd)
 cd /opt/build
 #west build -p always -b esp32c6_devkitc/esp32c6 -- -DDTC_OVERLAY_FILE=boards/esp32c6.overlay
 echo "Invoking build command from $ORIG_DIR/$1"
-$ORIG_DIR/$1
+source $ORIG_DIR/$1
 
 echo "Copying artifacts back to work directory/bin.."
 artifact_endings=("bin" "elf" "uf2" "map")
