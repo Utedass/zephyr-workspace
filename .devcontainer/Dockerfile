@@ -38,6 +38,9 @@ RUN [ "west", "sdk", "install", "-b", "/opt/zephyr-sdk", "-t", "arm-zephyr-eabi"
 # Add the ZEPHYR_BASE environment variable to allow west commands to be used from anywhere
 ENV ZEPHYR_BASE=/opt/zephyr-workspace/zephyr
 
+# Prepare in-docker directory for building. (Much faster than building in bind-mounted folder, at least on windows)
+RUN mkdir -p /opt/build
+
 # Add helper script for building zephyr apps from anywhere
 # Usage:
 # build buildcommand.sh
@@ -45,3 +48,4 @@ ENV ZEPHYR_BASE=/opt/zephyr-workspace/zephyr
 # the resulting binaries will be copied to ./bin in your working directory
 COPY build.sh /usr/bin/build
 RUN chmod +x /usr/bin/build
+
