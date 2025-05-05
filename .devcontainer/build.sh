@@ -14,7 +14,7 @@ echo "Invoking build command from $ORIG_DIR/$1"
 source $ORIG_DIR/$1
 
 echo "Copying artifacts back to work directory/bin.."
-artifact_endings=("bin" "elf" "uf2" "map")
+artifact_endings=("bin" "elf" "uf2" "map" "hex")
 cd build/zephyr
 mkdir -p $ORIG_DIR/bin
 for ext in "${artifact_endings[@]}"; do
