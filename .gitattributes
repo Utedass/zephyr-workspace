@@ -1,1 +1,2 @@
 .devcontainer/build.sh eol=lf
+.devcontainer/workspace.code-workspace eol=lf

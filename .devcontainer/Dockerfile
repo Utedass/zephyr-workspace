@@ -1,5 +1,5 @@
 # Base image
-FROM debian:bookworm-20250407-slim
+FROM debian:bookworm-20250428-slim
 
 # Install required packages
 RUN apt-get update
@@ -7,7 +7,7 @@ RUN apt-get --no-install-recommends -y upgrade
 RUN apt-get install --no-install-recommends -y git cmake ninja-build gperf \
     ccache dfu-util device-tree-compiler wget \
     python3-dev python3-pip python3-setuptools python3-tk python3-wheel python3-venv \
-    xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 ssh
+    xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 ssh locales
 
 # Create venv and activate it by prepending the PATH variable (activation script not used in Docker..)
 RUN python3 -m venv /opt/venv
@@ -15,6 +15,11 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Install the zephyr west meta-tool from the python repositories
 RUN pip install west
+
+# Initialise system locale (required by menuconfig)
+RUN sed -i '/^#.*en_US.UTF-8/s/^#//' /etc/locale.gen && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 # Prepare west manifest and west workspace directory /opt/zephyr-workspace
 # First, only grab the slimmest version by using the basic.west.yml that only includes support for ARM
@@ -24,6 +29,9 @@ WORKDIR /opt/zephyr-workspace/
 RUN [ "west", "init", "-l", "west-manifest" ]
 RUN [ "west", "update"]
 RUN [ "west", "packages", "pip", "--install"]
+
+# Add kconfig to path to allow easy use of diffconfig tool
+ENV PATH="$PATH:/opt/zephyr-workspace/zephyr/scripts/kconfig/"
 
 # Then add support for additional boards if necessary
 # This allows for Docker build cache to be used without fetching the whole zephyr repo
@@ -48,4 +56,3 @@ RUN mkdir -p /opt/build
 # the resulting binaries will be copied to ./bin in your working directory
 COPY build.sh /usr/bin/build
 RUN chmod +x /usr/bin/build
-
