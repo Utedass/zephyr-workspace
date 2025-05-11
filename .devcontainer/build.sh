@@ -17,6 +17,7 @@ echo "Copying artifacts back to work directory/bin.."
 artifact_endings=("bin" "elf" "uf2" "map" "hex")
 cd build/zephyr
 mkdir -p $ORIG_DIR/bin
+rm -rf $ORIG_DIR/bin/*
 for ext in "${artifact_endings[@]}"; do
     file="zephyr.${ext}"
     if [[ -f $file ]]; then
@@ -26,3 +27,11 @@ for ext in "${artifact_endings[@]}"; do
         echo "$file not present, skipping"
     fi
 done
+
+# Diff configs if changed
+if [[ -f .config.old ]]; then
+    echo "Changed config detected. Diffing and saving diff"
+    diff --unchanged-group-format= --changed-group-format=%\>  -biw  .config.old .config > $ORIG_DIR/bin/kconfig.diff
+else
+    echo "No changed config to diff, skipping"
+fi
